@@ -1,6 +1,6 @@
-function [y,ydiff,yint] = Serie1_Aufg2(a,xmin,xmax)
+function [y,ydiff,yint] = Anliker_Simon_IT16ta_ZH09_S1_Aufg2(a,xmin,xmax)
 % a: array containing the coefficients in decreasing order
-% Example: [y1,y2,y3] = Serie1_Aufg2([2,1,3], -5, 5)
+% Example: [y1,y2,y3] = Anliker_Simon_IT16ta_ZH09_S1_Aufg2([2,1,3], -5, 5)
 
 % check for errors
 if size(a,1) ~= 1 && size(a,2) ~= 1
