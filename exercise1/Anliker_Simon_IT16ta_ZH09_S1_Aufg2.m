@@ -35,8 +35,8 @@ end
 % plot results
 figure('Name','Aufg2');
 plot(x,y,x,ydiff,x,yint);
-xlim([-10 10]);
-ylim([-3500 3500]);
+xlim([-8 8]);
+ylim([-800 800]);
 legend('function', 'differential', 'integral');
 grid on;
 
