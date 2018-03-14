@@ -7,7 +7,7 @@ Aufgabe 2:
 eps = B/2 * B^-n
     = 5 * 10^-10
 
-x = 0.4 * 10^-10 < eps
+x  = 0.4 * 10^-10 < eps
 
 1 + x = ? (runden, normieren)
 sqrt(x) = ?
