@@ -3,10 +3,11 @@ function [y,value,abs_err,rel_err] = Anliker_Simon_IT16ta_ZH09_S3_Aufg3(x,B,nmax
 % B: Basis 1 < B < 10
 % nmax: max Nachkommastellen
 % ...
-% Example: [y,value,abs_err,rel_err] = Anliker_Simon_IT16ta_ZH09_S3_Aufg3(7.44, 5, 2)
+% Example: [y,value,abs_err,rel_err] = Anliker_Simon_IT16ta_ZH09_S3_Aufg3(-7.44, 5, 2)
+% Example: [y,value,abs_err,rel_err] = Anliker_Simon_IT16ta_ZH09_S3_Aufg3(1006.687, 2, 13)
 
-if (1 >= B) && (B >= 10)
-   error('Basis B must be between 1 and 10 exclusive'); 
+if (B <= 1) || (B >= 10)
+   error('Basis B must be between 1 and 10 (exclusive)'); 
 end
 
 % Ganzzahliger Anteil
@@ -56,8 +57,32 @@ rel_err = 0; % TODO
 % Invertiert dummy1 um das richtige Resultat zu erhalten
 inv_d1 = inverse_string(dummy1);
 
+% Bestimme das Vorzeichen
+x_sign = sign2str(x);
+
 % Füge die Vor- und Nachkommastellen zusammen
-y = strcat(inv_d1,'.',dummy2);
+y = strcat(x_sign, inv_d1,'.',dummy2);
+
+end
+
+function [x_sign] = sign2str(x)
+% Gibt das Vorzeichen einer Zahl als string zurück
+%
+% x: positive oder negative Zahl
+% Example: [inv_str] = inverse_string('123')
+
+x_sign = '+';
+if sign(x) == -1
+    x_sign = '-';
+end
+
+end
+
+function [y_int] = integer_translation(x_int)
+
+end
+
+function [y_dec] = decimal_translation(x_dec) 
 
 end
 
