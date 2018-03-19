@@ -1,8 +1,12 @@
 function [y,value,abs_err,rel_err] = Anliker_Simon_IT16ta_ZH09_S3_Aufg3(x,B,nmax)
+% Rechnet eine beliebige Dezimalzahl x inkl. Nachkommastellen in eine Basis
+% B um. Zurückgegeben werden die Zahl y in der neuen Basis inkl. Vorzeichen
+% und nmax Nachkommastellen, der Wert von y sowie der absolute und
+% relative Fehler, der durch das allfällige Abschneiden passiert.
+%
 % x: beliebige Dezimalzahl inkl Nachkommastellen
 % B: Basis 1 < B < 10
 % nmax: max Nachkommastellen
-% ...
 % Example: [y,value,abs_err,rel_err] = Anliker_Simon_IT16ta_ZH09_S3_Aufg3(-7.44, 5, 2)
 % Example: [y,value,abs_err,rel_err] = Anliker_Simon_IT16ta_ZH09_S3_Aufg3(1006.687, 2, 13)
 
@@ -18,26 +22,33 @@ z2 = abs(x) - z1;
 % Hilfsvariablen
 div = z1;
 count = 0;
-dummy1(1) = '0';
-dummy2(1) = '0';
+value = 0;
+
+% Invertiertes Resultat des ganzzahligen Anteils
+inv_y_int(1) = '0';
 
 % Solange der Quotient nicht 0 ist
 while div > 0 
     % Wiederhole für nächste Stelle
     count = count + 1; 
     % Teile Zahl mit Rest durch Basis B
-    rest = mod(div, B);
-    % Schreibe Rest in dummy1 and der Stelle count
-    dummy1(count) = num2str(rest);
+    rest = mod(div,B);
+    % Schreibe Rest and der Stelle count
+    inv_y_int(count) = num2str(rest);
     % Rest der Division ist nächste Ziffer
     div = fix(div/B); 
+    % Addiere effectiven Wert zu value
+    value = value + rest * B^(count-1);
 end
 
 div = z2;
 count = 0;
 
+% Resultat des Nachkomma Anteils
+y_dec(1) = '0';
+
 % Solange Rest nicht 0 oder bis nmax erreicht ist
-while (div ~= 0) && (length(dummy2) ~= nmax)
+while (div ~= 0) && (length(y_dec) ~= nmax)
     % Wiederhole für nächste Stelle
     count = count + 1;
     % Multipliziere Zahl mit Basis B
@@ -45,31 +56,44 @@ while (div ~= 0) && (length(dummy2) ~= nmax)
     % Ganzzahliger Anteil
     res_z1 = abs(fix(res));
     % Schreibe ganzzahliger Anteil in dummy2 and der Stelle count
-    dummy2(count) = num2str(res_z1);
+    y_dec(count) = num2str(res_z1);
     % Nachkomma Anteil ist nächste Ziffer
     div = abs(res) - res_z1;
 end
 
-value = 0; % TODO
-abs_err = 0; % TODO
-rel_err = 0; % TODO
+% Berechne effectiven Wert der Nachkommastellen
+inv_y_dec = inverse_string(y_dec);
+dec_len = length(y_dec);
+dec_value = 0;
+for i = 1:dec_len
+    dec = str2double(inv_y_dec(i));
+    dec_value = dec_value + dec * B^(i-1);
+end
+value = value + (dec_value / B^dec_len);
+% Passe value dem Vorzeichen an
+value = value * sign(x);
 
-% Invertiert dummy1 um das richtige Resultat zu erhalten
-inv_d1 = inverse_string(dummy1);
+% Berrechne den absoluten Fehler
+abs_err = x - value;
+% Berrehcne den relativen Fehler
+rel_err = abs_err / x;
 
 % Bestimme das Vorzeichen
 x_sign = sign2str(x);
 
+% Invertieren um das richtige Resultat zu erhalten
+y_int = inverse_string(inv_y_int);
+
 % Füge die Vor- und Nachkommastellen zusammen
-y = strcat(x_sign, inv_d1,'.',dummy2);
+y = strcat(x_sign,y_int,'.',y_dec);
 
 end
 
 function [x_sign] = sign2str(x)
-% Gibt das Vorzeichen einer Zahl als string zurück
+% Gibt das Vorzeichen einer Zahl als string zurück d.h. '+' oder '-'.
 %
 % x: positive oder negative Zahl
-% Example: [inv_str] = inverse_string('123')
+% Example: [x_sign] = sign2str(-5)
 
 x_sign = '+';
 if sign(x) == -1
