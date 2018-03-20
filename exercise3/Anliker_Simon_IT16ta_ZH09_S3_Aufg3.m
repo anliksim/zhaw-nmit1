@@ -62,7 +62,7 @@ while (div ~= 0) && (length(y_dec) ~= nmax)
 end
 
 % Berechne effectiven Wert der Nachkommastellen
-inv_y_dec = inverse_string(y_dec);
+inv_y_dec = y_dec(end:-1:1);
 dec_len = length(y_dec);
 dec_value = 0;
 for i = 1:dec_len
@@ -82,7 +82,7 @@ rel_err = abs_err / x;
 x_sign = sign2str(x);
 
 % Invertieren um das richtige Resultat zu erhalten
-y_int = inverse_string(inv_y_int);
+y_int = inv_y_int(end:-1:1);
 
 % Füge die Vor- und Nachkommastellen zusammen
 y = strcat(x_sign,y_int,'.',y_dec);
@@ -98,31 +98,6 @@ function [x_sign] = sign2str(x)
 x_sign = '+';
 if sign(x) == -1
     x_sign = '-';
-end
-
-end
-
-function [y_int] = integer_translation(x_int)
-
-end
-
-function [y_dec] = decimal_translation(x_dec) 
-
-end
-
-
-function [inv_str] = inverse_string(str)
-% Nimmt einen beliebigen String und kehrt ihn um.
-%
-% str: zu invertierende string Sequenz
-% Example: [inv_str] = inverse_string('123')
-
-len = length(str);
-idx = len+1;
-inv_str(len) = '0';
-
-for i = 1:len
-    inv_str(i) = str(idx-i);
 end
 
 end

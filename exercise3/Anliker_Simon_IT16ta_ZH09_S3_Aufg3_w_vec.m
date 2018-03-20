@@ -1,8 +1,6 @@
 function [y,value,abs_err,rel_err] = Anliker_Simon_IT16ta_ZH09_S3_Aufg3_w_vec(x,B,nmax)
-% Rechnet eine beliebige Dezimalzahl x inkl. Nachkommastellen in eine Basis
-% B um. Zurückgegeben werden die Zahl y in der neuen Basis inkl. Vorzeichen
-% und nmax Nachkommastellen, der Wert von y sowie der absolute und
-% relative Fehler, der durch das allfällige Abschneiden passiert.
+% Gleiche Funktion wie Anliker_Simon_IT16ta_ZH09_S3_Aufg3 jedoch unter der
+% Verwendung von linien Vektoren für die Speicherung der Zahl.
 %
 % x: beliebige Dezimalzahl inkl Nachkommastellen
 % B: Basis 1 < B < 10
@@ -58,15 +56,20 @@ while (div ~= 0) && (length(y_dec) ~= nmax)
     div = abs(res) - res_z1;
 end
 
+% Elemente im Vektor des ganzzahligen Teils
 y_int_el = numel(inv_y_int);
+% Vektor mit B^x für die Multiplikation mit y_int
 pow_B = B.^(0:1:y_int_el-1);
 
+% Elemente im Vektor des Nachkomma Teils
 y_dec_el = numel(y_dec);
+% Vektor mit B^x für die Multiplikation mit y_dec
 pow_B_dec = B.^(y_dec_el-1:-1:0);
 
+% Effektiver Dezimalwert der umgerechneten Zahl
 value_dec = sum(y_dec .* pow_B_dec) / B^y_dec_el;
-
 value = sum(inv_y_int .* pow_B) + value_dec;
+
 % Berrechne den absoluten Fehler
 abs_err = x - value;
 % Berrehcne den relativen Fehler
@@ -75,7 +78,10 @@ rel_err = abs_err / x;
 % Bestimme das Vorzeichen
 x_sign = sign2str(x);
 
+% Invertierter Vektor y_int
 y_int = inv_y_int(end:-1:1);
+
+% Vektoren als string
 y_int_str = num2str(y_int')';
 y_dec_str = num2str(y_dec')';
 
@@ -93,31 +99,6 @@ function [x_sign] = sign2str(x)
 x_sign = '+';
 if sign(x) == -1
     x_sign = '-';
-end
-
-end
-
-function [y_int] = integer_translation(x_int)
-
-end
-
-function [y_dec] = decimal_translation(x_dec) 
-
-end
-
-
-function [inv_str] = inverse_string(str)
-% Nimmt einen beliebigen String und kehrt ihn um.
-%
-% str: zu invertierende string Sequenz
-% Example: [inv_str] = inverse_string('123')
-
-len = length(str);
-idx = len+1;
-inv_str(len) = '0';
-
-for i = 1:len
-    inv_str(i) = str(idx-i);
 end
 
 end
