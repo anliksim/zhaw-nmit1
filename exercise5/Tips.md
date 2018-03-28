@@ -1,0 +1,37 @@
+# Serie 5
+
+## Aufgabe 1
+
+a)
+ * f(x) = ....
+ * f(x) = 0 <=> x = 0 setzen
+ * Startpunkt in Nähe von 0 und 1
+
+b)
+ * alpha = max|F'(x)| < 1
+   x element von [-0.5, 0.5] -> [-0.5, 0.5]
+ * F(0) = ....
+ * F(0.5) = ....
+
+c)
+ * |xn - xquer| <= alphaN / 1 - alpha | x1-x0| < 10^-9
+
+## Aufgabe 2
+
+a)
+ * alpha = infektionsrate (zwischen 0.25 und 4)
+ * Berechne für jedes alpha die Folge {k}i=0:1000 (plotten)
+
+b)
+ * kQuer (% der Kinder die immer krank sind)
+
+c)
+ * k = alpha k (1 - k)
+
+## Aufgabe 3
+
+a) 1/2 r^2 (phi * sin(phi)) = 1/4 r^2 pi
+
+b) sin(phi) = phi - 0.5pi graphisch darstellen
+
+c) Trigonometrie  
