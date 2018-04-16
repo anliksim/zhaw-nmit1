@@ -7,10 +7,20 @@ function [A_triangle,detA,x] = Anliker_Simon_IT16ta_ZH09_S7_Aufg2(A,b)
 % b: Spaltenvektor mit n Zeilen
 % Example: [A_triangle,detA,x] = Anliker_Simon_IT16ta_ZH09_S7_Aufg2([200 150 100;50 30 20;20 10 0],[2150;470;150])
 
+n = size(A,2);
+
+if(n ~= size(A,1))
+    error('A muss n*n gross sein')
+end
+
+if(n ~= size(b,1))
+    error('b muss n Zeilen haben')
+end
+
 % Determinante A <=> -1*det(A_triangle)
 detA = det(A);
 
-n = size(A,2);
+
 A = [A,b];
 
 % j - Zeilenzahl, i - Spaltenzahl
