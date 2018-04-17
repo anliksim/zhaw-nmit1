@@ -59,13 +59,15 @@ end
 % Obere Dreiecksmatrix von A
 A_triangle = A(:,1:n);
 
-% Determinate A als Produkt von ~a_ii
+% Determinate A als Produkt aller ~a_ii von i bis n 
+% mal -1 hoch Anzahl Zeilenvertausche
 detA = (-1)^zswitch;
 for i = 1:n
     detA = detA * A_triangle(i,i);
 end
 
 % x berechnen durch Rückwärtseinsetzen
+% Initialisiere Spaltenvektor x mit 0
 x = zeros(3,1);
 for i = n:-1:1
     % Summer aller a_ij * x_j
