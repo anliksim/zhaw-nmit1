@@ -20,18 +20,22 @@ end
 % A als Ab für den Gaussalgorithmus
 A = [A,b];
 
-% Zeilenvertausch Zähler
+% Zähler für Zeilenvertauschungen
 zswitch = 0;
 % j - Zeilenzahl, i - Spaltenzahl
 for i = 1:n-1
     
+    % Falls a_ii gleich 0 auf Regularität prüfen
+    % und allenfalls Zeilen tauschen
     if A(i,i) == 0
         
+        % Prüft ob mindestend ein Wert in der Spalte nicht 0 ist
         regular = 0;
         for j = i+1:n
           regular = regular + (A(j,i) ~= 0);
         end
         
+        % Falls alle Werte in der Spalte 0 sind
         if ~regular
             error('A ist nicht regulär')
         end
@@ -55,6 +59,7 @@ end
 % Obere Dreiecksmatrix von A
 A_triangle = A(:,1:n);
 
+% Determinate A als Produkt von ~a_ii
 detA = (-1)^zswitch;
 for i = 1:n
     detA = detA * A_triangle(i,i);
