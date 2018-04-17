@@ -17,12 +17,11 @@ if(n ~= size(b,1))
     error('b muss n Zeilen haben')
 end
 
-% Determinante A <=> -1*det(A_triangle)
-detA = det(A);
-
 % A als Ab für den Gaussalgorithmus
 A = [A,b];
 
+% Zeilenvertausch Zähler
+zswitch = 0;
 % j - Zeilenzahl, i - Spaltenzahl
 for i = 1:n-1
     
@@ -38,8 +37,12 @@ for i = 1:n-1
         end
         
         for j = i+1:n
-            % Tausche Zeile i mit Zeile j
-            A([i,j],:) = A([j,i],:);
+            if A(j,i) ~= 0
+                % Tausche Zeile i mit Zeile j
+                A([i,j],:) = A([j,i],:);
+                zswitch = zswitch + 1;
+                break;
+            end
         end
     end
     
@@ -51,6 +54,11 @@ end
 
 % Obere Dreiecksmatrix von A
 A_triangle = A(:,1:n);
+
+detA = (-1)^zswitch;
+for i = 1:n
+    detA = detA * A_triangle(i,i);
+end
 
 % x berechnen durch Rückwärtseinsetzen
 x = zeros(3,1);

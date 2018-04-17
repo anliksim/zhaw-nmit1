@@ -3,7 +3,7 @@
 % unterschiedlich. Wenn man die Resultate rundet erhält man das selbe
 % Resultat.
 
-A1 = [4 -1 -5;-12 4 17;32 -10 -42];
+A1 = [4 -1 -5;-12 4 17;32 -10 -41];
 disp('Compare A1 x1');
 compare(A1, [-5;19;-39]);
 disp('Compare A1 x2');
