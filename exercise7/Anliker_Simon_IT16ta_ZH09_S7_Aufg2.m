@@ -20,22 +20,33 @@ end
 % Determinante A <=> -1*det(A_triangle)
 detA = det(A);
 
-
+% A als Ab für den Gaussalgorithmus
 A = [A,b];
 
 % j - Zeilenzahl, i - Spaltenzahl
 for i = 1:n-1
     
     if A(i,i) == 0
-        % Tausche Zeile i mit Zeile j
-        A([i,i+1],:) = A([i+1,i],:);
+        
+        regular = 0;
+        for j = i+1:n
+          regular = regular + (A(j,i) ~= 0);
+        end
+        
+        if ~regular
+            error('A ist nicht regulär')
+        end
+        
+        for j = i+1:n
+            % Tausche Zeile i mit Zeile j
+            A([i,j],:) = A([j,i],:);
+        end
     end
     
     for j = i+1:n
         % Zeile j := Zeile j - a_ji/a_ii * Zeile i
         A(j,:) = A(j,:) - (A(j,i)./A(i,i)).*A(i,:);
     end
-    
 end
 
 % Obere Dreiecksmatrix von A
