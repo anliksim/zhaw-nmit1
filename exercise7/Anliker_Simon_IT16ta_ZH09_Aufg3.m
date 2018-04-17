@@ -33,6 +33,8 @@ disp('Compare A4 x');
 compare(A4, [-11;103;53;-20;95;78;131;-26]);
 
 function [] = compare(A,b)
+% Vergleicht den Output von linsolve, backslash und eigener Gauss
+% implementation vor und nach dem Runden.
 
 [~,~,x] = Anliker_Simon_IT16ta_ZH09_S7_Aufg2(A,b);
 xlin = linsolve(A, b);
