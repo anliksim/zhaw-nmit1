@@ -75,7 +75,7 @@ for i = n:-1:1
     for j = i+1:n
       sum = sum + A(i,j) * x(j);
     end
-    % b_i minus Summe durch a_ii
+    %  b_i minus Summe durch a_ii
     x(i) = (A(i,n+1) - sum) / A(i,i);
 end
 
